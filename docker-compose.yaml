@@ -1,0 +1,63 @@
+version: "3"
+
+services:
+  postgres:
+    container_name: postgres
+    image: postgres:13.5
+    networks:
+      - sportsnet
+    hostname: localhost
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres-volume:/data
+    env_file:
+      - .env
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    container_name: redis-server
+    image: redis:6.2.6
+    networks:
+      - sportsnet
+    hostname: localhost
+    ports:
+      - 6379:6379
+    volumes:
+      - redis-volume:/data
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli ping | grep PONG"]
+      interval: 1s
+      timeout: 3s
+      retries: 5
+
+  apis:
+    environment:
+      - STAGE=${stage:-local}
+    container_name: sports-day-${stage:-local}
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - 3333:3333
+    volumes:
+      - ~/logs/sports-day:/app/logs
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+volumes:
+  postgres-volume:
+    driver: local
+  redis-volume:
+    driver: local
+
+networks:
+  sportsnet:

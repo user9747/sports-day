@@ -1,0 +1,6 @@
+BEGIN;
+
+DROP TABLE users;
+DROP TYPE roles
+
+COMMIT:

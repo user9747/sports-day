@@ -1,0 +1,9 @@
+CREATE TABLE IF NOT EXISTS events(
+    id SERIAL PRIMARY KEY,
+    name TEXT UNIQUE NOT NULL,
+    category TEXT NOT NULL,
+    start_time TIMESTAMP NOT NULL,
+    end_time TIMESTAMP NOT NULL,
+    created_at TIMESTAMP DEFAULT NOW(),
+    updated_at TIMESTAMP DEFAULT NOW()
+);
