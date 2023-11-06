@@ -45,7 +45,7 @@ func Test_GetDashboardUserWithUserName(t *testing.T) {
 	userID, err := s.CreateUser(context.Background(), userName, "admin")
 	assert.Nil(t, err, "User creation failed")
 
-	u, err := s.GetUserFromUser(context.Background(), userName)
+	u, err := s.GetUserFromUsername(context.Background(), userName)
 	assert.Nil(t, err, "Unable to get user")
 	assert.Equal(t, userName, u.UserName, "username not matching")
 	assert.Equal(t, u.ID, userID, "userID not matching")

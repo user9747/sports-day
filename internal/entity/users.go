@@ -11,6 +11,12 @@ type User struct {
 	CreatedBy ID     `db:"created_by"`
 }
 
+type LoggedInUser struct {
+	ID       ID     `db:"id"`
+	UserName string `db:"username"`
+	Role     string `db:"role"`
+}
+
 const (
 	UserRoleParticipant = "participant"
 	UserRoleAdmin       = "admin"

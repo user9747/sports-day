@@ -1,7 +1,9 @@
 package utils
 
 import (
+	"context"
 	"math/rand"
+	"sports-day/internal/entity"
 	"strings"
 	"time"
 )
@@ -45,4 +47,12 @@ func InArr[T string | int | int16 | int32 | int64 | bool](val T, arr []T) bool {
 
 func IsUniqueConstraintViolation(err error) bool {
 	return strings.Contains(err.Error(), "duplicate key value violates unique constraint")
+}
+
+func GetLoggedInUser(ctx context.Context) *entity.LoggedInUser {
+	user, ok := ctx.Value("userId").(entity.LoggedInUser)
+	if ok {
+		return &user
+	}
+	return nil
 }

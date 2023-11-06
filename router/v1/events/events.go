@@ -1,3 +1,4 @@
+// events_router package for events related routes
 package events_router
 
 import (

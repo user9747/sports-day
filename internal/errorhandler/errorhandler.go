@@ -11,7 +11,7 @@ import (
 
 const GenericFailureMessage = "something went wrong, please check back in an hour"
 
-// Recovery handles the panic happening on any function, this is to be called by defer in functions
+// Recovery handles the panic happening on request handler functions
 func Recovery(w http.ResponseWriter, request *http.Request, httpStatusCode int) {
 
 	if r := recover(); r != nil {

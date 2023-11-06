@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"net/http"
+	"sports-day/internal/entity"
 	"sports-day/internal/errorhandler"
 	"sports-day/internal/usecases/users"
 	"sports-day/internal/utils"
@@ -11,9 +12,21 @@ import (
 
 var userService = users.GetUserService()
 
+// CreateUser creates user from userName and role
 func CreateUser(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		defer errorhandler.Recovery(w, r, http.StatusBadRequest)
+
+		loggedInUser := utils.GetLoggedInUser(r.Context())
+
+		if loggedInUser == nil {
+			panic("invalid user")
+		}
+
+		if loggedInUser.Role != entity.UserRoleAdmin {
+			errorhandler.CustomError(w, http.StatusForbidden, "not admin")
+			return
+		}
 
 		var reqObj UserReq
 		decoder := json.NewDecoder(r.Body)

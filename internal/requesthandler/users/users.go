@@ -6,19 +6,17 @@ import (
 	"sports-day/internal/entity"
 	"sports-day/internal/errorhandler"
 	"sports-day/internal/usecases/users"
-
-	"github.com/go-chi/chi/v5"
 )
 
 var userService = users.GetUserService()
 
+// GetUserDetails returns users role and name of logged in user
 func GetUserDetails(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		defer errorhandler.Recovery(w, r, http.StatusBadRequest)
-		id := chi.URLParam(r, "userId")
-		userId, err := entity.StringToID(id)
+		userId, ok := r.Context().Value("userId").(entity.ID)
 
-		if err != nil {
+		if !ok {
 			panic("invalid user id")
 		}
 		u, err := userService.GetUser(r.Context(), userId)

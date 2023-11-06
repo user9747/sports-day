@@ -12,12 +12,12 @@ type AuthRepo struct {
 }
 
 // GetUser implements auth.Repo.
-func (*AuthRepo) GetUser(ctx context.Context, token string) (*entity.User, error) {
+func (*AuthRepo) GetUser(ctx context.Context, token string) (*entity.LoggedInUser, error) {
 	userObjString, err := cache.Get(ctx, token)
 	if err != nil {
 		return nil, err
 	}
-	var u entity.User
+	var u entity.LoggedInUser
 	err = json.Unmarshal([]byte(userObjString), &u)
 	if err != nil {
 		return nil, err
@@ -27,7 +27,12 @@ func (*AuthRepo) GetUser(ctx context.Context, token string) (*entity.User, error
 
 // Login implements auth.Repo.
 func (*AuthRepo) Login(ctx context.Context, u *entity.User, token string) error {
-	return cache.SetStruct(token, *u, time.Hour*24)
+	loggedInUser := entity.LoggedInUser{
+		ID:       u.ID,
+		UserName: u.UserName,
+		Role:     u.Role,
+	}
+	return cache.SetStruct(token, loggedInUser, time.Hour*24)
 }
 
 // Logout implements auth.Repo.

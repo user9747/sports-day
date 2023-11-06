@@ -1,3 +1,4 @@
+// admin_router has admin routes like create user and events...etc
 package admin_router
 
 import (

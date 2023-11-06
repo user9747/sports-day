@@ -38,6 +38,7 @@ func main() {
 		w.Write([]byte("health ok"))
 	})
 
+	// Register V1 Routes
 	r.Route("/v1", v1.Routes)
 
 	log.Println("go-api server started") //TODO log after server started

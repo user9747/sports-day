@@ -20,6 +20,6 @@ type Repo interface {
 
 type UseCase interface {
 	GetUser(ctx context.Context, userID entity.ID) (*entity.User, error)
-	GetUserFromUser(ctx context.Context, userName string) (*entity.User, error)
+	GetUserFromUsername(ctx context.Context, userName string) (*entity.User, error)
 	CreateUser(ctx context.Context, userName, role string) (entity.ID, error)
 }

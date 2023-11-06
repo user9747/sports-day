@@ -38,13 +38,13 @@ func newService(r Repo, u users.UseCase) *service {
 }
 
 // GetUserFromToken implements UseCase.
-func (s *service) GetUserFromToken(ctx context.Context, token string) (*entity.User, error) {
+func (s *service) GetUserFromToken(ctx context.Context, token string) (*entity.LoggedInUser, error) {
 	return s.repo.GetUser(ctx, token)
 }
 
 // Login implements UseCase.
 func (s *service) Login(ctx context.Context, userName string) (string, error) {
-	u, err := s.users.GetUserFromUser(ctx, userName) //TODO: GetUserFromUsername
+	u, err := s.users.GetUserFromUsername(ctx, userName)
 	if err != nil {
 		return "", err
 	}

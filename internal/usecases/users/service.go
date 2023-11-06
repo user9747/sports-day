@@ -38,7 +38,7 @@ func newService(r Repo) *service {
 func (s *service) GetUser(ctx context.Context, userID entity.ID) (*entity.User, error) {
 	return s.repo.Get(ctx, userID)
 }
-func (s *service) GetUserFromUser(ctx context.Context, userName string) (*entity.User, error) {
+func (s *service) GetUserFromUsername(ctx context.Context, userName string) (*entity.User, error) {
 	return s.repo.GetFromUser(ctx, userName)
 }
 func (s *service) CreateUser(ctx context.Context, userName, role string) (entity.ID, error) {

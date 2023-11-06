@@ -12,6 +12,7 @@ import (
 
 var authService = auth.GetAuthService()
 
+// Login controller returns token after checking
 func Login(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		defer errorhandler.Recovery(w, r, http.StatusBadRequest)
@@ -37,6 +38,7 @@ func Login(next http.Handler) http.Handler {
 	})
 }
 
+// Logout logsout the current logged in user
 func Logout(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		defer errorhandler.Recovery(w, r, http.StatusBadRequest)

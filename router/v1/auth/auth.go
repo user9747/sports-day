@@ -1,3 +1,4 @@
+// auth_router has authentication related routes
 package auth_router
 
 import (

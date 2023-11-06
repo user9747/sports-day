@@ -6,7 +6,7 @@ import (
 )
 
 type Reader interface {
-	GetUser(ctx context.Context, token string) (*entity.User, error)
+	GetUser(ctx context.Context, token string) (*entity.LoggedInUser, error)
 }
 type Writer interface {
 	Login(ctx context.Context, u *entity.User, token string) error
@@ -21,5 +21,5 @@ type Repo interface {
 type UseCase interface {
 	Login(ctx context.Context, userName string) (string, error)
 	Logout(ctx context.Context, token string) error
-	GetUserFromToken(ctx context.Context, token string) (*entity.User, error)
+	GetUserFromToken(ctx context.Context, token string) (*entity.LoggedInUser, error)
 }

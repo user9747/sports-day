@@ -10,12 +10,8 @@ import (
 )
 
 var database *sqlx.DB = nil
-
-// var readOnlyDatabase *sqlx.DB = nil
 var dbOnce sync.Once
 
-// var readOnlyDBOnce sync.Once
-// TODO: execute this once and store db detail in global var
 func GetDB() *sqlx.DB {
 	var err error
 	dbOnce.Do(func() {
