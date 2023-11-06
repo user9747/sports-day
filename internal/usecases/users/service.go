@@ -16,7 +16,7 @@ var serviceOnce sync.Once
 
 func GetUserService() UseCase {
 	serviceOnce.Do(func() {
-		log.Println("Setting up service")
+		log.Println("Setting up User service")
 		db := db.GetDB()
 		userRepo := repository.NewUserPg(db)
 		userService = newService(userRepo)

@@ -50,9 +50,9 @@ func IsUniqueConstraintViolation(err error) bool {
 }
 
 func GetLoggedInUser(ctx context.Context) *entity.LoggedInUser {
-	user, ok := ctx.Value("userId").(entity.LoggedInUser)
+	user, ok := ctx.Value("user").(*entity.LoggedInUser)
 	if ok {
-		return &user
+		return user
 	}
 	return nil
 }

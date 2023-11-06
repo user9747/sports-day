@@ -7,7 +7,7 @@ import (
 	redis "github.com/go-redis/redis/v8"
 )
 
-const suffix = "-lendingapp"
+const suffix = "-sportsdayapp"
 
 var (
 	Nil                   = redis.Nil

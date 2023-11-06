@@ -14,7 +14,7 @@ var eventsService UseCase = nil
 
 func GetService() UseCase {
 	serviceOnce.Do(func() {
-		log.Println("Setting up service")
+		log.Println("Setting up Events service")
 		db := db.GetDB()
 		eventsRepo := repository.NewEventsPg(db)
 		eventsService = newService(eventsRepo)

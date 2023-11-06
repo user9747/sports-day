@@ -3,7 +3,6 @@ package auth_req
 import (
 	"context"
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"sports-day/internal/errorhandler"
 	"sports-day/internal/middlewares"
@@ -44,7 +43,6 @@ func Logout(next http.Handler) http.Handler {
 		defer errorhandler.Recovery(w, r, http.StatusBadRequest)
 		token := r.Header.Get(middlewares.HeaderToken)
 		err := authService.Logout(r.Context(), token)
-		fmt.Println(err)
 		if err != nil {
 			panic(err.Error())
 		}

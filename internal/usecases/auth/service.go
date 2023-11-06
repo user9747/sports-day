@@ -2,6 +2,7 @@ package auth
 
 import (
 	"context"
+	"database/sql"
 	"log"
 	"sports-day/internal/entity"
 	"sports-day/internal/repository"
@@ -15,7 +16,7 @@ var serviceOnce sync.Once
 
 func GetAuthService() UseCase {
 	serviceOnce.Do(func() {
-		log.Println("Setting up service ...")
+		log.Println("Setting up Auth service ...")
 
 		u := users.GetUserService()
 		r := repository.NewAuthRepo()
@@ -45,6 +46,9 @@ func (s *service) GetUserFromToken(ctx context.Context, token string) (*entity.L
 // Login implements UseCase.
 func (s *service) Login(ctx context.Context, userName string) (string, error) {
 	u, err := s.users.GetUserFromUsername(ctx, userName)
+	if err == sql.ErrNoRows {
+		return "", entity.ErrUserNotFound
+	}
 	if err != nil {
 		return "", err
 	}

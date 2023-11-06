@@ -2,7 +2,6 @@ package repository
 
 import (
 	"context"
-	"log"
 	"sports-day/internal/entity"
 
 	"github.com/google/uuid"
@@ -67,7 +66,6 @@ func (pg *EventsPg) Register(ctx context.Context, userId entity.ID, eventId int)
 // UnRegister implements events.Repo.
 func (pg *EventsPg) UnRegister(ctx context.Context, userId entity.ID, eventId int) error {
 	query := "DELETE FROM registrations where user_id = $1 and event_id = $2"
-	log.Println(query, userId, eventId)
 	_, err := pg.db.ExecContext(ctx, query, userId, eventId)
 	return err
 }
