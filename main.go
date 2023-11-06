@@ -24,6 +24,7 @@ func main() {
 	r.Use(middleware.RequestID)
 	r.Use(middleware.Recoverer)
 	r.Use(middleware.RealIP) //can access ip address by r.RemoteAddr anywhere
+	r.Use(middleware.Logger)
 
 	// TODO change config for PROD
 	r.Use(cors.Handler(cors.Options{
