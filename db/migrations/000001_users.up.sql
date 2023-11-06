@@ -7,8 +7,7 @@ CREATE TABLE IF NOT EXISTS users(
    username VARCHAR(50) NOT NULL UNIQUE,
    role roles default 'participant'::roles,
    created_at timestamp default now(),
-   updated_at timestamp default now(),
-   created_by UUID
+   updated_at timestamp default now()
 );
 
 COMMIT;

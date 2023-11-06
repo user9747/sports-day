@@ -18,7 +18,7 @@ var eventsService = events.GetService()
 func List(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		defer errorhandler.Recovery(w, r, http.StatusBadRequest)
-		eventsList, err := eventsService.GetAllEvents(r.Context(), 10, 1)
+		eventsList, err := eventsService.GetAllEvents(r.Context(), 0, 0)
 		if err != nil {
 			slog.Error("unable to fetch events", err)
 			panic("unable to fetch events")
@@ -38,7 +38,7 @@ func ListRegistered(next http.Handler) http.Handler {
 		if !ok {
 			panic("invalid user id")
 		}
-		eventsList, err := eventsService.GetAllRegisteredEvents(r.Context(), 10, 1, userId)
+		eventsList, err := eventsService.GetAllRegisteredEvents(r.Context(), 0, 0, userId)
 		if err != nil {
 			slog.Error("unable to fetch events", err)
 			panic("unable to fetch events")

@@ -15,7 +15,7 @@ var serviceOnce sync.Once
 
 func GetAuthService() UseCase {
 	serviceOnce.Do(func() {
-		log.Println("Setting up Dashboard user service")
+		log.Println("Setting up service ...")
 
 		u := users.GetUserService()
 		r := repository.NewAuthRepo()
@@ -44,7 +44,7 @@ func (s *service) GetUserFromToken(ctx context.Context, token string) (*entity.U
 
 // Login implements UseCase.
 func (s *service) Login(ctx context.Context, userName string) (string, error) {
-	u, err := s.users.GetUserFromUser(ctx, userName)
+	u, err := s.users.GetUserFromUser(ctx, userName) //TODO: GetUserFromUsername
 	if err != nil {
 		return "", err
 	}
